@@ -1,13 +1,10 @@
 // import styles from "./ImageCard.module.css"
 
-const ImageCard = ({ urls, description, likes, username }) => { 
+const ImageCard = ({ urls, alt_description}) => { 
   return (
     <div>
       <div>
-        <img src={urls.small} alt={description} />
-        <div><p>Likes: {likes}</p>
-          <p>Author: {username}</p>
-        </div>
+        <img src={urls.small} alt={alt_description} />
 			</div>
     </div>
   )

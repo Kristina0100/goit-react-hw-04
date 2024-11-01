@@ -1,9 +1,9 @@
-// import styles from "./LoadMoreBtn.module.css"
+import styles from "./LoadMoreBtn.module.css"
 
 const LoadMoreBtn = ({onClick}) => {
   return (
-    <div>
-      <button type="button" onClick={onClick}>Load more</button>
+    <div className={styles.btn_wrap}>
+      <button className={styles.btn} type="button" onClick={onClick}>Load more</button>
     </div>
   )
 }

@@ -8,8 +8,9 @@ const Loader = () => {
   visible={true}
   height="96"
   width="96"
-  color="violet"
+  color="green"
   strokeWidth="5"
+  strokeColor="crimson"
   animationDuration="0.75"
   ariaLabel="rotating-lines-loading"
   wrapperStyle={{}}

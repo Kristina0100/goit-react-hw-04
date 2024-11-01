@@ -1,6 +1,7 @@
-// import styles from "./SearchBar.module.css";
+import styles from "./SearchBar.module.css";
 
 import { Toaster, toast } from 'react-hot-toast';
+import { FaSearch } from "react-icons/fa";
 
 const SearchBar = ({ onSubmit }) => {
 
@@ -12,7 +13,7 @@ const SearchBar = ({ onSubmit }) => {
 
     if (query.trim() === '') {
         toast.error('Please enter a search term', {
-        position: 'top-center',
+        position: 'top-right',
         duration: 2000,
         style: {
           background: '#363636',
@@ -29,16 +30,20 @@ const SearchBar = ({ onSubmit }) => {
  
   return (
     <div>
-      <header>
-  <form onSubmit={handleSubmit}>
-    <input
+      <header className={styles.header}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.wrapper}>
+            <FaSearch className={styles.icon} />
+          <input 
+            className={styles.search}
       type="text"
       name='query'
       autoComplete="off"
       autoFocus
       placeholder="Search images and photos"
-    />
-    <button type="submit">Search</button>
+            />
+          </div>
+    <button className={styles.button} type="submit">Search</button>
   </form>
       </header>
       <Toaster 
@@ -46,7 +51,9 @@ const SearchBar = ({ onSubmit }) => {
         reverseOrder={false}
         gutter={8}
         containerClassName=""
-        containerStyle={{}}
+        containerStyle={{
+           top: 5,
+         }}
         toastOptions={{
           className: '',
           duration: 3000,

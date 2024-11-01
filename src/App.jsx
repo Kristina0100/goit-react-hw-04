@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Modal from 'react-modal';
-import {fetchImagesWithQuery} from './unsplash-api'
+import {fetchImagesWithQuery} from './utils/unsplash-api'
 
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
@@ -79,8 +79,12 @@ function App() {
         <ImageModal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
+          // shouldCloseOnOverlayClick={true}
           selectedImage={selectedImage}
-          shouldCloseOnOverlayClick={true}
+          // alt={selectedImage.alt_description}
+          // size={selectedImage.urls.regular}
+          // likes={selectedImage.likes}
+          // author={selectedImage.user.username}
         />
       )}
     </>
