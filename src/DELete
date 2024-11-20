@@ -1,0 +1,30 @@
+//  const handleSubmit = async () => {
+//     try {
+//       setImages([]);
+//       setError(null);
+//       setLoading(true);
+
+//       const data = await fetchImagesWithQuery();
+//       setImages(data);
+//     } catch (error) {
+//       setError(error.message);
+//       <ErrorMessage error={error} />
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleClick = async () => {
+//     setLoading(true);
+//     try {
+//       const nextPage = page + 1;
+//       const data = await fetchImagesWithQuery(query, nextPage); 
+//       setImages((prevImages) => [...prevImages, ...data]); 
+//       setPage(nextPage); 
+//     } catch (error) {
+//       setError(true);
+//       console.log(error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };

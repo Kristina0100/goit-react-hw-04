@@ -16,7 +16,7 @@ const customStyles = {
     },
 };
 
-const ImageModal = ({selectedImage, isOpen, onRequestClose }) => {
+const ImageModal = ({selectedImage, isOpen, onRequestClose}) => {
 
   return (
       <Modal

@@ -1,11 +1,11 @@
 import styles from "./LoadMoreBtn.module.css"
 
-const LoadMoreBtn = ({onClick}) => {
+const LoadMoreBtn = ({ onLoad }) => {
   return (
     <div className={styles.btn_wrap}>
-      <button className={styles.btn} type="button" onClick={onClick}>Load more</button>
+      <button className={styles.btn} type="button" onClick={onLoad}>Load more</button>
     </div>
   )
 }
 
-export default LoadMoreBtn
+export default LoadMoreBtn;

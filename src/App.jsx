@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import Modal from 'react-modal';
 import {fetchImagesWithQuery} from './utils/unsplash-api'
 
@@ -18,44 +18,43 @@ function App() {
   const [error, setError] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(null);
+  const [totalPages, setTotalPages] = useState(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleSubmit = async (newQuery) => {
-    try {
-      setPage(1);
-      setQuery(newQuery);
-      setImages([]);
-      setError(null);
-      setLoading(true);
 
-      const data = await fetchImagesWithQuery(newQuery, 1);
-      setImages(data)
+    const onSubmit = (query) => {
+      setQuery(query);
+      setPage(1);
+      setImages([]); 
+  };
+
+  useEffect(() => {
+    if (!query) return;
+    const fetchImagesByQuery = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchImagesWithQuery(query, page); 
+        setImages((prevImages) =>
+          page === 1 ? data : [...prevImages, ...data]
+        );
+        setTotalPages(data.total_pages);
     } catch (error) {
       setError(error.message);
-      <ErrorMessage error={error} />
     } finally {
       setLoading(false);
     }
-  };
+    };
+    fetchImagesByQuery ();
+  }, [query, page]);
 
-  const handleClick = async () => {
-    setLoading(true);
-    try {
-      const nextPage = page + 1;
-      const data = await fetchImagesWithQuery(query, nextPage); 
-      setImages((prevImages) => [...prevImages, ...data]); 
-      setPage(nextPage); 
-    } catch (error) {
-      setError(true);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+const loadMore = () => {
+  if (page < totalPages) {
+    setPage((prevPage) => prevPage + 1);
+  }
+};
   const openModal = (image) => {
     setSelectedImage(image);
     setIsModalOpen(true);
@@ -68,29 +67,29 @@ function App() {
 
   return (
     <>
-      <SearchBar onSubmit={handleSubmit} />
-      {images.length > 0 && <ImageGallery images={images}
+      <SearchBar onSubmit={onSubmit} />
+      {(Array.isArray(images) && images.length > 0) && <ImageGallery images={images}
       setImages={setImages} onImageClick={openModal}/>}
       {loading && <Loader />}
       {error && <ErrorMessage error={error}/>}
-      {images.length > 0 && <LoadMoreBtn
-        onClick={handleClick} />}
+      {images.length > 0 && page < totalPages && (
+        <LoadMoreBtn onLoad={loadMore} />
+      )}
       {selectedImage && (
         <ImageModal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
-          // shouldCloseOnOverlayClick={true}
           selectedImage={selectedImage}
-          // alt={selectedImage.alt_description}
-          // size={selectedImage.urls.regular}
-          // likes={selectedImage.likes}
-          // author={selectedImage.user.username}
+          alt={selectedImage.alt_description}
+          size={selectedImage.regular}
+          likes={selectedImage.likes}
+          author={selectedImage.username}
         />
       )}
     </>
   )
 }
 
-export default App
+export default App;
 
 

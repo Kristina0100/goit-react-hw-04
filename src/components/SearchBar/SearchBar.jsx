@@ -1,7 +1,7 @@
-import styles from "./SearchBar.module.css";
-
 import { Toaster, toast } from 'react-hot-toast';
 import { FaSearch } from "react-icons/fa";
+
+import styles from "./SearchBar.module.css";
 
 const SearchBar = ({ onSubmit }) => {
 
