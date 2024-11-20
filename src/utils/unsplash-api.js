@@ -6,5 +6,5 @@ const ACCESS_KEY = 'OgfDvHFl_T6LY9Vhko37JBCxPGr2pfGeirggxNgVGLA';
 export const fetchImagesWithQuery = async (query, page) => {
     const response = await axios.get(
         `/search/photos/?client_id=${ACCESS_KEY}&query=${query}&orientation=landscape&per_page=12&page=${page}`)
-    return response.data.results;
+    return response.data;
 };

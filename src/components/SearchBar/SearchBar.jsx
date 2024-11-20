@@ -12,21 +12,21 @@ const SearchBar = ({ onSubmit }) => {
     const query = form.elements.query.value;
 
     if (query.trim() === '') {
-        toast.error('Please enter a search term', {
+      toast.error('Please enter a search term', {
         position: 'top-right',
         duration: 2000,
         style: {
           background: '#363636',
           color: '#fff',
         },
-        });
+      });
       
       return;
     };
 
     onSubmit(query);
     form.reset();
-  }
+  };
  
   return (
     <div>
@@ -34,26 +34,26 @@ const SearchBar = ({ onSubmit }) => {
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.wrapper}>
             <FaSearch className={styles.icon} />
-          <input 
-            className={styles.search}
-      type="text"
-      name='query'
-      autoComplete="off"
-      autoFocus
-      placeholder="Search images and photos"
+            <input
+              className={styles.search}
+              type="text"
+              name='query'
+              autoComplete="off"
+              autoFocus
+              placeholder="Search images and photos"
             />
           </div>
-    <button className={styles.button} type="submit">Search</button>
-  </form>
+          <button className={styles.button} type="submit">Search</button>
+        </form>
       </header>
-      <Toaster 
+      <Toaster
         position="top-center"
         reverseOrder={false}
         gutter={8}
         containerClassName=""
         containerStyle={{
-           top: 5,
-         }}
+          top: 5,
+        }}
         toastOptions={{
           className: '',
           duration: 3000,
@@ -64,7 +64,7 @@ const SearchBar = ({ onSubmit }) => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;

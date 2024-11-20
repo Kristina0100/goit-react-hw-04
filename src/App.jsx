@@ -1,6 +1,6 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react';
+import { fetchImagesWithQuery } from './utils/unsplash-api';
 import Modal from 'react-modal';
-import {fetchImagesWithQuery} from './utils/unsplash-api'
 
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
@@ -13,13 +13,13 @@ Modal.setAppElement('#root');
 
 function App() {
 
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState(null);
-  const [totalPages, setTotalPages] = useState(null);
+  const [totalPages, setTotalPages] = useState(0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -38,7 +38,7 @@ function App() {
         setLoading(true);
         const data = await fetchImagesWithQuery(query, page); 
         setImages((prevImages) =>
-          page === 1 ? data : [...prevImages, ...data]
+          page === 1 ? data.results : [...prevImages, ...data.results]
         );
         setTotalPages(data.total_pages);
     } catch (error) {
@@ -56,7 +56,12 @@ const loadMore = () => {
   }
 };
   const openModal = (image) => {
-    setSelectedImage(image);
+    setSelectedImage({
+    regular: image.urls.regular, 
+    alt: image.alt_description, 
+    likes: image.likes, 
+    name: image.user.name, 
+  });
     setIsModalOpen(true);
   };
 
@@ -68,11 +73,11 @@ const loadMore = () => {
   return (
     <>
       <SearchBar onSubmit={onSubmit} />
-      {(Array.isArray(images) && images.length > 0) && <ImageGallery images={images}
+      {images !== null && <ImageGallery images={images}
       setImages={setImages} onImageClick={openModal}/>}
       {loading && <Loader />}
       {error && <ErrorMessage error={error}/>}
-      {images.length > 0 && page < totalPages && (
+      {images !== null && images.length > 0 && page < totalPages && (
         <LoadMoreBtn onLoad={loadMore} />
       )}
       {selectedImage && (
@@ -80,10 +85,6 @@ const loadMore = () => {
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           selectedImage={selectedImage}
-          alt={selectedImage.alt_description}
-          size={selectedImage.regular}
-          likes={selectedImage.likes}
-          author={selectedImage.username}
         />
       )}
     </>

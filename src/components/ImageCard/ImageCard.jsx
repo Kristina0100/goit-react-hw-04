@@ -1,5 +1,3 @@
-// import styles from "./ImageCard.module.css"
-
 const ImageCard = ({ urls, alt_description}) => { 
   return (
     <div>
@@ -10,4 +8,4 @@ const ImageCard = ({ urls, alt_description}) => {
   )
 }
 
-export default ImageCard
+export default ImageCard;

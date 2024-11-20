@@ -25,7 +25,7 @@ const ImageModal = ({selectedImage, isOpen, onRequestClose}) => {
         onRequestClose={onRequestClose}
       >
         <div>
-          <img src={selectedImage.regular} alt={selectedImage.alt_description} onClick={onRequestClose} />
+          <img src={selectedImage.regular} alt={selectedImage.alt} onClick={onRequestClose} />
           <div className={styles.wrapper}>
           <p className={styles.info}>Likes: {selectedImage.likes}</p>
           <p className={styles.info}>Author: {selectedImage.name}</p>
@@ -35,4 +35,4 @@ const ImageModal = ({selectedImage, isOpen, onRequestClose}) => {
   );
 };
 
-export default ImageModal
+export default ImageModal;
