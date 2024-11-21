@@ -54,7 +54,8 @@ const loadMore = () => {
   if (page < totalPages) {
     setPage((prevPage) => prevPage + 1);
   }
-};
+  };
+  
   const openModal = (image) => {
     setSelectedImage({
     regular: image.urls.regular, 
